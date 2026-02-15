@@ -47,6 +47,8 @@ class AgentRunner(Runner):
         pending_ids: list[str] = []
         if not msgs:
             return pending_ids
+        if not isinstance(msgs, (list, tuple)):
+            msgs = [msgs]
 
         key = (session_id, user_id)
         async with self._pending_lock:
@@ -109,11 +111,14 @@ class AgentRunner(Runner):
         session_id = request.session_id
         user_id = request.user_id
         channel = getattr(request, "channel", DEFAULT_CHANNEL)
-        pending_ids = await self.add_pending_messages(
-            session_id=session_id,
-            user_id=user_id,
-            msgs=msgs,
+        pending_id_set = set(
+            await self.add_pending_messages(
+                session_id=session_id,
+                user_id=user_id,
+                msgs=msgs,
+            ),
         )
+        pending_ids = list(pending_id_set)
 
         logger.info(
             "Handle agent query:\n%s",
@@ -183,6 +188,14 @@ class AgentRunner(Runner):
                 agents=[agent],
                 coroutine_task=agent(msgs),
             ):
+                new_pending_ids = await self.add_pending_messages(
+                    session_id=session_id,
+                    user_id=user_id,
+                    msgs=msg,
+                )
+                if new_pending_ids:
+                    pending_id_set.update(new_pending_ids)
+                    pending_ids = list(pending_id_set)
                 yield msg, last
 
             await self.session.save_session_state(
