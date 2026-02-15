@@ -162,9 +162,11 @@ async def get_chat(
             state = json.load(file)
     except Exception:
         state = {}
-    memories = state.get("agent", {}).get("memory", [])
+    memories = state.get("agent", {}).get("memory", {})
+    if not isinstance(memories, dict):
+        memories = {}
     memory = InMemoryMemory()
-    memory.load_state_dict(memories)
+    memory.load_state_dict(memories, strict=False)
 
     memories = await memory.get_memory()
     messages = agentscope_msg_to_message(memories)

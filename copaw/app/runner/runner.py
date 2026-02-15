@@ -190,17 +190,18 @@ class AgentRunner(Runner):
                 user_id=user_id,
                 agent=agent,
             )
-            await self.remove_pending_messages(
-                session_id=session_id,
-                user_id=user_id,
-                msg_ids=pending_ids,
-            )
 
             if self._chat_manager is not None:
                 await self._chat_manager.update_chat(chat)
         except Exception as e:
             logger.exception("Error in query handler: %s", e)
             raise
+        finally:
+            await self.remove_pending_messages(
+                session_id=session_id,
+                user_id=user_id,
+                msg_ids=pending_ids,
+            )
 
     async def init_handler(self, *args, **kwargs):
         """
