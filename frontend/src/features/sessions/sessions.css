@@ -1,0 +1,260 @@
+.sessions-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sessions-header {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 0.9rem 1rem;
+  background: var(--panel-strong);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.sessions-header h2 {
+  margin: 0 0 0.35rem;
+}
+
+.sessions-header p {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+.sessions-header-actions {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.sessions-page button {
+  border: 1px solid rgba(13, 126, 131, 0.35);
+  background: rgba(13, 126, 131, 0.08);
+  color: var(--accent-strong);
+  border-radius: 10px;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+}
+
+.sessions-page button.danger {
+  border-color: rgba(180, 63, 50, 0.35);
+  background: rgba(180, 63, 50, 0.08);
+  color: var(--danger);
+}
+
+.sessions-error,
+.sessions-note,
+.sessions-muted {
+  margin: 0;
+  border-radius: 12px;
+  padding: 0.7rem 0.85rem;
+}
+
+.sessions-error {
+  color: var(--danger);
+  border: 1px solid rgba(180, 63, 50, 0.3);
+  background: rgba(180, 63, 50, 0.08);
+}
+
+.sessions-note {
+  color: var(--accent-strong);
+  border: 1px solid rgba(13, 126, 131, 0.25);
+  background: rgba(13, 126, 131, 0.08);
+}
+
+.sessions-muted {
+  color: var(--ink-muted);
+}
+
+.sessions-filters-card,
+.sessions-create-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel-strong);
+  padding: 0.85rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 0.65rem;
+  align-items: end;
+}
+
+.sessions-create-card {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.sessions-filters-card label,
+.sessions-create-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.sessions-filters-card input,
+.sessions-create-card input {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.5rem 0.6rem;
+  font: inherit;
+  color: var(--ink);
+}
+
+.sessions-grid {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 0.9rem;
+  min-height: 450px;
+}
+
+.sessions-list-card,
+.sessions-history-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel-strong);
+  min-height: 0;
+}
+
+.sessions-list-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.sessions-list-card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.7rem;
+  border-bottom: 1px solid var(--line);
+  padding: 0.85rem;
+}
+
+.sessions-list-card h3,
+.sessions-history-card h3 {
+  margin: 0;
+}
+
+.sessions-list-card ul {
+  margin: 0;
+  padding: 0.55rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  overflow: auto;
+}
+
+.sessions-list-card li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.sessions-list-card li input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+.sessions-list-card .session-main {
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 0.6rem;
+  text-align: left;
+  width: 100%;
+}
+
+.sessions-list-card li.active .session-main {
+  border-color: rgba(13, 126, 131, 0.45);
+  background: rgba(13, 126, 131, 0.09);
+}
+
+.sessions-list-card .session-main strong {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.sessions-list-card .session-main span {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.76rem;
+  color: var(--ink-muted);
+}
+
+.sessions-history-card {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.sessions-history-card > header {
+  border-bottom: 1px solid var(--line);
+  padding: 0.9rem 1rem;
+}
+
+.sessions-history-card > header p {
+  margin: 0.35rem 0 0;
+  color: var(--ink-muted);
+  font-size: 0.84rem;
+}
+
+.sessions-history-body {
+  padding: 0.9rem 1rem;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.record {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  padding: 0.6rem 0.75rem;
+}
+
+.record header {
+  margin-bottom: 0.4rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.record pre {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.45;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+}
+
+.record.user {
+  border-color: rgba(13, 126, 131, 0.35);
+  background: rgba(13, 126, 131, 0.08);
+}
+
+@media (max-width: 1080px) {
+  .sessions-filters-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sessions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .sessions-filters-card,
+  .sessions-create-card {
+    grid-template-columns: 1fr;
+  }
+
+  .sessions-list-card li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .sessions-list-card li input[type="checkbox"] {
+    grid-column: 1;
+    justify-self: start;
+  }
+}
