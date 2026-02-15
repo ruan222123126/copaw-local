@@ -22,7 +22,7 @@
   - `session-store-block.js`
   - `router-block.js`
 
-## 阶段二：模块化重建（语义恢复）
+## 阶段二：模块化重建（语义恢复 + 可运行化命名整理）
 
 根据阶段一的 `snippets` + `reports`，重建可维护目录：
 
@@ -52,6 +52,7 @@
 ```bash
 node tools/frontend_recovery/recover_frontend.js
 node tools/frontend_recovery/rebuild_phase2_modules.js
+node tools/frontend_recovery/check_module_syntax.js
 ```
 
 首次建立基线（已有基线会报错，覆盖请加 `--force`）：
@@ -66,6 +67,12 @@ node tools/frontend_recovery/snapshot_baseline.js
 node tools/frontend_recovery/check_coverage_regression.js
 ```
 
+更新基线（显式覆盖）：
+
+```bash
+node tools/frontend_recovery/snapshot_baseline.js --force
+```
+
 ## 仓库策略
 
 - `copaw/console_decompiled/original/` 与 `copaw/console_decompiled/pretty/` 已加入 `.gitignore`
@@ -73,5 +80,5 @@ node tools/frontend_recovery/check_coverage_regression.js
 
 ## 说明
 
-- 当前目标是“语义可读恢复 + 可重复生成”，不是直接恢复原始 TS/Vue 工程。
-- 由于没有 source map，变量命名和模块边界存在近似误差，需要后续人工重命名与业务回归测试。
+- 当前目标是“语义可读恢复 + 可运行化命名整理 + 可重复生成”，不是直接恢复原始 TS/Vue 工程。
+- 由于没有 source map，变量命名和模块边界存在近似误差，仍需要后续业务回归测试。

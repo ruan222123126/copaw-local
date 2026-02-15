@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-02-15T06:23:08.438Z",
-  "source_summary_generated_at": "2026-02-15T06:23:08.392Z",
+  "generated_at": "2026-02-15T07:02:13.400Z",
+  "source_summary_generated_at": "2026-02-15T07:02:08.913Z",
   "source_reports": {
     "xr_method_count": 33,
     "route_path_count": 9,
@@ -24,7 +24,7 @@
     "copaw/console_decompiled/modules/i18n/business-i18n-keys.json"
   ],
   "notes": [
-    "phase2 为语义重建，不等价于原始 TS/Vue 源码",
-    "session-store 仍包含匿名化辅助符号的兜底逻辑"
+    "phase2 为语义重建 + 可运行化命名整理，不等价于原始 TS/Vue 源码",
+    "无 source map 条件下，变量命名和模块边界存在近似误差"
   ]
 }
