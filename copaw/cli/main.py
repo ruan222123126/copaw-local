@@ -128,3 +128,7 @@ cli.add_command(env_group)
 cli.add_command(init_cmd)
 cli.add_command(models_group)
 cli.add_command(skills_group)
+
+
+if __name__ == "__main__":
+    cli()
