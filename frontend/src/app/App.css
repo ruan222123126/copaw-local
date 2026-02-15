@@ -11,6 +11,12 @@
   --danger: #b43f32;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -18,6 +24,7 @@
 body {
   margin: 0;
   min-height: 100vh;
+  overflow: hidden;
   color: var(--ink);
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
   background:
@@ -28,6 +35,7 @@ body {
 
 #root {
   min-height: 100vh;
+  height: 100vh;
 }
 
 code {
@@ -35,12 +43,17 @@ code {
 }
 
 .app-shell {
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 0;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 250px minmax(0, 1fr);
 }
 
 .left-rail {
+  height: 100vh;
+  min-height: 0;
+  overflow-y: auto;
   border-right: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(5px);
@@ -98,6 +111,10 @@ code {
 }
 
 .main-shell {
+  height: 100vh;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 1rem;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
