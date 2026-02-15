@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+node_modules/
 *.swp
 .DS_Store
 .pytest_cache/
