@@ -12,6 +12,16 @@ export const navKeyByPath = {
   "/environments": "environments"
 };
 
+export const DEFAULT_ROUTE_PATH = "/chat";
+
+/**
+ * Resolve nav menu key by pathname and fallback to default chat page.
+ * @param {string} pathname
+ * @returns {string}
+ */
+export const getNavKeyForPath = (pathname) =>
+  navKeyByPath[pathname] || navKeyByPath[DEFAULT_ROUTE_PATH];
+
 export const recoveredRouteComponents = [
   {
     "path": "/chat",

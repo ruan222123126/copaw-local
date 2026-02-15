@@ -2,17 +2,17 @@
 
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { navKeyByPath } from "./routes";
+import { DEFAULT_ROUTE_PATH, getNavKeyForPath } from "./routes";
 
 export function useRecoveredSelectedKey() {
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname;
-  const selectedKey = navKeyByPath[pathname] || "chat";
+  const selectedKey = getNavKeyForPath(pathname);
 
   useEffect(() => {
     if (pathname === "/") {
-      navigate("/chat", { replace: true });
+      navigate(DEFAULT_ROUTE_PATH, { replace: true });
     }
   }, [pathname, navigate]);
 

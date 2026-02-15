@@ -1,4 +1,4 @@
-const B0n = {
+const commonEn = {
     save: "Save",
     reset: "Reset",
     cancel: "Cancel",
@@ -20,7 +20,7 @@ const B0n = {
     copyFailed: "Failed to copy to clipboard",
     contentPlaceholder: "Enter content..."
   },
-  F0n = {
+  navEn = {
     chat: "Chat",
     control: "Control",
     channels: "Channels",
@@ -33,7 +33,7 @@ const B0n = {
     models: "Models",
     environments: "Environments"
   },
-  U0n = {
+  workspaceEn = {
     title: "WorkSpace",
     workspacePath: "Workspace:",
     noFiles: "No files",
@@ -50,7 +50,7 @@ const B0n = {
     fileSizeExceeded: "File size exceeds 100MB limit. Current file: {{size}}MB",
     attribution: "Workspace design partly inspired by the OpenClaw project — thank you! 🐾"
   },
-  j0n = {
+  skillsEn = {
     title: "Skills",
     description: "Manage agent skills and capabilities.",
     source: "Source",
@@ -75,7 +75,7 @@ const B0n = {
     editNote: "Note: Backend API does not support editing skills. You can only view or toggle enable/disable status.",
     create: "Create"
   },
-  X0n = {
+  cronJobsEn = {
     title: "Cron Jobs",
     description: "Configure and monitor scheduled tasks",
     createJob: "Create Job",
@@ -113,7 +113,7 @@ const B0n = {
     invalidJsonFormat: "Invalid JSON format",
     jsonFormatRequired: "JSON format required"
   },
-  Y0n = {
+  channelsEn = {
     title: "Channels",
     description: "Manage and configure message channels",
     loading: "Loading channels...",
@@ -135,7 +135,7 @@ const B0n = {
     dbPathPlaceholder: "~/Library/Messages/chat.db",
     botPrefixPlaceholder: "@bot"
   },
-  V0n = {
+  sessionsEn = {
     title: "Sessions",
     description: "View and manage active chat sessions",
     loading: "Loading sessions...",
@@ -154,7 +154,7 @@ const B0n = {
     pleaseInputName: "Please input session name",
     sessionNamePlaceholder: "Session name"
   },
-  q0n = {
+  environmentsEn = {
     title: "Environment Variables",
     description: "Configure key-value environment variables for agents and skills.",
     key: "Key",
@@ -181,7 +181,7 @@ const B0n = {
     variable: "variable",
     variables: "variables"
   },
-  G0n = {
+  modelsEn = {
     llmConfiguration: "LLM Configuration",
     providersTitle: "Providers",
     providersDescription: "Configure API keys and endpoints for each provider.",
@@ -227,18 +227,18 @@ const B0n = {
     settings: "Settings",
     actions: "Actions"
   },
-  W0n = {
-    common: B0n,
-    nav: F0n,
-    workspace: U0n,
-    skills: j0n,
-    cronJobs: X0n,
-    channels: Y0n,
-    sessions: V0n,
-    environments: q0n,
-    models: G0n
+  translationEn = {
+    common: commonEn,
+    nav: navEn,
+    workspace: workspaceEn,
+    skills: skillsEn,
+    cronJobs: cronJobsEn,
+    channels: channelsEn,
+    sessions: sessionsEn,
+    environments: environmentsEn,
+    models: modelsEn
   },
-  H0n = {
+  commonZh = {
     save: "保存",
     reset: "重置",
     cancel: "取消",
@@ -260,7 +260,7 @@ const B0n = {
     copyFailed: "复制到剪贴板失败",
     contentPlaceholder: "输入内容..."
   },
-  Z0n = {
+  navZh = {
     chat: "聊天",
     control: "控制",
     channels: "频道",
@@ -273,7 +273,7 @@ const B0n = {
     models: "模型",
     environments: "环境变量"
   },
-  K0n = {
+  workspaceZh = {
     title: "工作区",
     workspacePath: "工作区路径：",
     noFiles: "没有文件",
@@ -290,7 +290,7 @@ const B0n = {
     fileSizeExceeded: "文件大小超过 100MB 限制。当前文件：{{size}}MB",
     attribution: "工作区设计部分灵感源自 OpenClaw 项目，在此表示感谢 🐾"
   },
-  J0n = {
+  skillsZh = {
     title: "技能",
     description: "管理智能体技能和能力。",
     source: "来源",
@@ -315,7 +315,7 @@ const B0n = {
     editNote: "注意：后端API不支持编辑技能。您只能查看或切换启用/禁用状态。",
     create: "创建"
   },
-  ebn = {
+  cronJobsZh = {
     title: "定时任务",
     description: "配置和监控定时任务",
     createJob: "创建任务",
@@ -353,7 +353,7 @@ const B0n = {
     invalidJsonFormat: "JSON格式无效",
     jsonFormatRequired: "需要JSON格式"
   },
-  tbn = {
+  channelsZh = {
     title: "频道",
     description: "管理和配置消息频道",
     loading: "正在加载频道...",
@@ -375,7 +375,7 @@ const B0n = {
     dbPathPlaceholder: "~/Library/Messages/chat.db",
     botPrefixPlaceholder: "@bot"
   },
-  nbn = {
+  sessionsZh = {
     title: "会话",
     description: "查看和管理活动聊天会话",
     loading: "正在加载会话...",
@@ -394,7 +394,7 @@ const B0n = {
     pleaseInputName: "请输入会话名称",
     sessionNamePlaceholder: "会话名称"
   },
-  rbn = {
+  environmentsZh = {
     title: "环境变量",
     description: "为智能体和技能配置键值环境变量。",
     key: "键",
@@ -421,7 +421,7 @@ const B0n = {
     variable: "变量",
     variables: "变量"
   },
-  abn = {
+  modelsZh = {
     llmConfiguration: "LLM 配置",
     providersTitle: "提供商",
     providersDescription: "为每个提供商配置 API 密钥和端点。",
@@ -467,24 +467,24 @@ const B0n = {
     settings: "设置",
     actions: "操作"
   },
-  ibn = {
-    common: H0n,
-    nav: Z0n,
-    workspace: K0n,
-    skills: J0n,
-    cronJobs: ebn,
-    channels: tbn,
-    sessions: nbn,
-    environments: rbn,
-    models: abn
+  translationZh = {
+    common: commonZh,
+    nav: navZh,
+    workspace: workspaceZh,
+    skills: skillsZh,
+    cronJobs: cronJobsZh,
+    channels: channelsZh,
+    sessions: sessionsZh,
+    environments: environmentsZh,
+    models: modelsZh
   },
-  obn = {
+  i18nResources = {
     en: {
-      translation: W0n
+      translation: translationEn
     },
     zh: {
-      translation: ibn
+      translation: translationZh
     }
   };
 
-export const recoveredI18nResources = obn;
+export const recoveredI18nResources = i18nResources;

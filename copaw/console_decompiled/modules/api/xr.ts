@@ -3,6 +3,32 @@
 
 export const API_BASE_URL = "";
 
+/**
+ * @typedef {{ user_id?: string, channel?: string }} SessionFilter
+ * @typedef {{ modified_time?: string | number, [key: string]: any }} WorkspaceFileRecord
+ * @typedef {{ filename?: string, modified_time?: string | number, [key: string]: any }} MemoryFileRecord
+ */
+
+const encodePathSegment = (value) => encodeURIComponent(value);
+
+const buildSessionQuery = (filter) => {
+  const query = new URLSearchParams();
+  if (filter?.user_id) {
+    query.append("user_id", filter.user_id);
+  }
+  if (filter?.channel) {
+    query.append("channel", filter.channel);
+  }
+  const queryString = query.toString();
+  return queryString ? `?${queryString}` : "";
+};
+
+/**
+ * @template T
+ * @param {string} path
+ * @param {RequestInit} [options]
+ * @returns {Promise<T>}
+ */
 export async function requestJson(path, options) {
   const response = await fetch(`${API_BASE_URL}${path}`, options);
   if (!response.ok) {
@@ -12,225 +38,263 @@ export async function requestJson(path, options) {
     );
   }
   if (response.status === 204) {
-    return null;
+    return /** @type {T} */ (null);
   }
   const contentType = response.headers.get("content-type") || "";
   if (contentType.includes("application/json")) {
-    return response.json();
+    return /** @type {Promise<T>} */ (response.json());
   }
-  return response.text();
+  return /** @type {Promise<T>} */ (response.text());
 }
 
+const toJsonBody = (value) => JSON.stringify(value);
+
 export const rootApi = {
-    readRoot: () => requestJson("/"),
-    getVersion: () => requestJson("/version")
-  };
+  readRoot: () => requestJson("/"),
+  getVersion: () => requestJson("/version"),
+};
 
 export const channelsApi = {
-    listChannelTypes: () => requestJson("/config/channels/types"),
-    listChannels: () => requestJson("/config/channels"),
-    updateChannels: e => requestJson("/config/channels", {
+  listChannelTypes: () => requestJson("/config/channels/types"),
+  listChannels: () => requestJson("/config/channels"),
+  updateChannels: (channels) =>
+    requestJson("/config/channels", {
       method: "PUT",
-      body: JSON.stringify(e)
+      body: toJsonBody(channels),
     }),
-    getChannelConfig: e => requestJson(`/config/channels/${encodeURIComponent(e)}`),
-    updateChannelConfig: (e, t) => requestJson(`/config/channels/${encodeURIComponent(e)}`, {
+  getChannelConfig: (channelId) => requestJson(`/config/channels/${encodePathSegment(channelId)}`),
+  updateChannelConfig: (channelId, config) =>
+    requestJson(`/config/channels/${encodePathSegment(channelId)}`, {
       method: "PUT",
-      body: JSON.stringify(t)
-    })
-  };
+      body: toJsonBody(config),
+    }),
+};
 
 export const cronJobsApi = {
-    listCronJobs: () => requestJson("/cron/jobs"),
-    createCronJob: e => requestJson("/cron/jobs", {
+  listCronJobs: () => requestJson("/cron/jobs"),
+  createCronJob: (payload) =>
+    requestJson("/cron/jobs", {
       method: "POST",
-      body: JSON.stringify(e)
+      body: toJsonBody(payload),
     }),
-    getCronJob: e => requestJson(`/cron/jobs/${encodeURIComponent(e)}`),
-    replaceCronJob: (e, t) => requestJson(`/cron/jobs/${encodeURIComponent(e)}`, {
+  getCronJob: (jobId) => requestJson(`/cron/jobs/${encodePathSegment(jobId)}`),
+  replaceCronJob: (jobId, payload) =>
+    requestJson(`/cron/jobs/${encodePathSegment(jobId)}`, {
       method: "PUT",
-      body: JSON.stringify(t)
+      body: toJsonBody(payload),
     }),
-    deleteCronJob: e => requestJson(`/cron/jobs/${encodeURIComponent(e)}`, {
-      method: "DELETE"
+  deleteCronJob: (jobId) =>
+    requestJson(`/cron/jobs/${encodePathSegment(jobId)}`, {
+      method: "DELETE",
     }),
-    pauseCronJob: e => requestJson(`/cron/jobs/${encodeURIComponent(e)}/pause`, {
-      method: "POST"
+  pauseCronJob: (jobId) =>
+    requestJson(`/cron/jobs/${encodePathSegment(jobId)}/pause`, {
+      method: "POST",
     }),
-    resumeCronJob: e => requestJson(`/cron/jobs/${encodeURIComponent(e)}/resume`, {
-      method: "POST"
+  resumeCronJob: (jobId) =>
+    requestJson(`/cron/jobs/${encodePathSegment(jobId)}/resume`, {
+      method: "POST",
     }),
-    runCronJob: e => requestJson(`/cron/jobs/${encodeURIComponent(e)}/run`, {
-      method: "POST"
+  runCronJob: (jobId) =>
+    requestJson(`/cron/jobs/${encodePathSegment(jobId)}/run`, {
+      method: "POST",
     }),
-    triggerCronJob: e => requestJson(`/cron/jobs/${encodeURIComponent(e)}/run`, {
-      method: "POST"
+  triggerCronJob: (jobId) =>
+    requestJson(`/cron/jobs/${encodePathSegment(jobId)}/run`, {
+      method: "POST",
     }),
-    getCronJobState: e => requestJson(`/cron/jobs/${encodeURIComponent(e)}/state`)
-  };
+  getCronJobState: (jobId) => requestJson(`/cron/jobs/${encodePathSegment(jobId)}/state`),
+};
 
 export const chatsApi = {
-    listChats: e => {
-      const t = new URLSearchParams;
-      e != null && e.user_id && t.append("user_id", e.user_id), e != null && e.channel && t.append("channel", e.channel);
-      const n = t.toString();
-      return requestJson(`/chats${n?`?${n}`:""}`)
-    },
-    createChat: e => requestJson("/chats", {
+  /**
+   * @param {SessionFilter} [filter]
+   */
+  listChats: (filter) => requestJson(`/chats${buildSessionQuery(filter)}`),
+  createChat: (payload) =>
+    requestJson("/chats", {
       method: "POST",
-      body: JSON.stringify(e)
+      body: toJsonBody(payload),
     }),
-    getChat: e => requestJson(`/chats/${encodeURIComponent(e)}`),
-    updateChat: (e, t) => requestJson(`/chats/${encodeURIComponent(e)}`, {
+  getChat: (chatId) => requestJson(`/chats/${encodePathSegment(chatId)}`),
+  updateChat: (chatId, payload) =>
+    requestJson(`/chats/${encodePathSegment(chatId)}`, {
       method: "PUT",
-      body: JSON.stringify(t)
+      body: toJsonBody(payload),
     }),
-    deleteChat: e => requestJson(`/chats/${encodeURIComponent(e)}`, {
-      method: "DELETE"
+  deleteChat: (chatId) =>
+    requestJson(`/chats/${encodePathSegment(chatId)}`, {
+      method: "DELETE",
     }),
-    batchDeleteChats: e => requestJson("/chats/batch-delete", {
+  batchDeleteChats: (payload) =>
+    requestJson("/chats/batch-delete", {
       method: "POST",
-      body: JSON.stringify(e)
-    })
-  };
+      body: toJsonBody(payload),
+    }),
+};
 
 export const sessionsApi = {
-    listSessions: e => {
-      const t = new URLSearchParams;
-      e != null && e.user_id && t.append("user_id", e.user_id), e != null && e.channel && t.append("channel", e.channel);
-      const n = t.toString();
-      return requestJson(`/chats${n?`?${n}`:""}`)
-    },
-    getSession: e => requestJson(`/chats/${encodeURIComponent(e)}`),
-    deleteSession: e => requestJson(`/chats/${encodeURIComponent(e)}`, {
-      method: "DELETE"
+  /**
+   * @param {SessionFilter} [filter]
+   */
+  listSessions: (filter) => requestJson(`/chats${buildSessionQuery(filter)}`),
+  getSession: (sessionId) => requestJson(`/chats/${encodePathSegment(sessionId)}`),
+  deleteSession: (sessionId) =>
+    requestJson(`/chats/${encodePathSegment(sessionId)}`, {
+      method: "DELETE",
     }),
-    createSession: e => requestJson("/chats", {
+  createSession: (payload) =>
+    requestJson("/chats", {
       method: "POST",
-      body: JSON.stringify(e)
+      body: toJsonBody(payload),
     }),
-    updateSession: (e, t) => requestJson(`/chats/${encodeURIComponent(e)}`, {
+  updateSession: (sessionId, payload) =>
+    requestJson(`/chats/${encodePathSegment(sessionId)}`, {
       method: "PUT",
-      body: JSON.stringify(t)
+      body: toJsonBody(payload),
     }),
-    batchDeleteSessions: e => requestJson("/chats/batch-delete", {
+  batchDeleteSessions: (payload) =>
+    requestJson("/chats/batch-delete", {
       method: "POST",
-      body: JSON.stringify(e)
-    })
-  };
+      body: toJsonBody(payload),
+    }),
+};
 
 export const envsApi = {
-    listEnvs: () => requestJson("/envs"),
-    saveEnvs: e => requestJson("/envs", {
+  listEnvs: () => requestJson("/envs"),
+  saveEnvs: (payload) =>
+    requestJson("/envs", {
       method: "PUT",
-      body: JSON.stringify(e)
+      body: toJsonBody(payload),
     }),
-    deleteEnv: e => requestJson(`/envs/${encodeURIComponent(e)}`, {
-      method: "DELETE"
-    })
-  };
+  deleteEnv: (envName) =>
+    requestJson(`/envs/${encodePathSegment(envName)}`, {
+      method: "DELETE",
+    }),
+};
 
 export const modelsApi = {
-    listProviders: () => requestJson("/models"),
-    configureProvider: (e, t) => requestJson(`/models/${encodeURIComponent(e)}/config`, {
+  listProviders: () => requestJson("/models"),
+  configureProvider: (providerName, config) =>
+    requestJson(`/models/${encodePathSegment(providerName)}/config`, {
       method: "PUT",
-      body: JSON.stringify(t)
+      body: toJsonBody(config),
     }),
-    getActiveModels: () => requestJson("/models/active"),
-    setActiveLlm: e => requestJson("/models/active", {
+  getActiveModels: () => requestJson("/models/active"),
+  setActiveLlm: (payload) =>
+    requestJson("/models/active", {
       method: "PUT",
-      body: JSON.stringify(e)
-    })
-  };
+      body: toJsonBody(payload),
+    }),
+};
 
 export const skillsApi = {
-    listSkills: () => requestJson("/skills"),
-    createSkill: (e, t) => requestJson("/skills", {
+  listSkills: () => requestJson("/skills"),
+  createSkill: (name, content) =>
+    requestJson("/skills", {
       method: "POST",
-      body: JSON.stringify({
-        name: e,
-        content: t
-      })
+      body: toJsonBody({
+        name,
+        content,
+      }),
     }),
-    enableSkill: e => requestJson(`/skills/${encodeURIComponent(e)}/enable`, {
-      method: "POST"
-    }),
-    disableSkill: e => requestJson(`/skills/${encodeURIComponent(e)}/disable`, {
-      method: "POST"
-    }),
-    batchEnableSkills: e => requestJson("/skills/batch-enable", {
+  enableSkill: (skillName) =>
+    requestJson(`/skills/${encodePathSegment(skillName)}/enable`, {
       method: "POST",
-      body: JSON.stringify(e)
     }),
-    deleteSkill: e => requestJson(`/skills/${encodeURIComponent(e)}`, {
-      method: "DELETE"
-    })
-  };
+  disableSkill: (skillName) =>
+    requestJson(`/skills/${encodePathSegment(skillName)}/disable`, {
+      method: "POST",
+    }),
+  batchEnableSkills: (payload) =>
+    requestJson("/skills/batch-enable", {
+      method: "POST",
+      body: toJsonBody(payload),
+    }),
+  deleteSkill: (skillName) =>
+    requestJson(`/skills/${encodePathSegment(skillName)}`, {
+      method: "DELETE",
+    }),
+};
 
 export const agentApi = {
-    agentRoot: () => requestJson("/agent/"),
-    healthCheck: () => requestJson("/agent/health"),
-    agentApi: e => requestJson("/agent/process", {
+  agentRoot: () => requestJson("/agent/"),
+  healthCheck: () => requestJson("/agent/health"),
+  agentApi: (payload) =>
+    requestJson("/agent/process", {
       method: "POST",
-      body: JSON.stringify(e)
+      body: toJsonBody(payload),
     }),
-    getProcessStatus: () => requestJson("/agent/admin/status"),
-    shutdownSimple: () => requestJson("/agent/shutdown", {
-      method: "POST"
+  getProcessStatus: () => requestJson("/agent/admin/status"),
+  shutdownSimple: () =>
+    requestJson("/agent/shutdown", {
+      method: "POST",
     }),
-    shutdown: () => requestJson("/agent/admin/shutdown", {
-      method: "POST"
-    })
-  };
+  shutdown: () =>
+    requestJson("/agent/admin/shutdown", {
+      method: "POST",
+    }),
+};
 
 export const workspaceApi = {
-    listFiles: () => requestJson("/agent/files").then(e => e.map(t => ({
-      ...t,
-      updated_at: new Date(t.modified_time).getTime()
-    }))),
-    loadFile: e => requestJson(`/agent/files/${encodeURIComponent(e)}`),
-    saveFile: (e, t) => requestJson(`/agent/files/${encodeURIComponent(e)}`, {
+  listFiles: () =>
+    requestJson("/agent/files").then((records) =>
+      (Array.isArray(records) ? records : []).map((record) => ({
+        ...record,
+        updated_at: new Date(record.modified_time).getTime(),
+      })),
+    ),
+  loadFile: (filePath) => requestJson(`/agent/files/${encodePathSegment(filePath)}`),
+  saveFile: (filePath, content) =>
+    requestJson(`/agent/files/${encodePathSegment(filePath)}`, {
       method: "PUT",
-      body: JSON.stringify({
-        content: t
-      })
+      body: toJsonBody({
+        content,
+      }),
     }),
-    downloadWorkspace: async () => {
-      const e = await fetch(`${API_BASE_URL}/workspace/download`, {
-        method: "GET"
-      });
-      if (!e.ok) throw new Error(`Workspace download failed: ${e.status} ${e.statusText}`);
-      return await e.blob()
-    },
-    uploadFile: async e => {
-      const t = new FormData;
-      t.append("file", e);
-      const n = await fetch(`${API_BASE_URL}/workspace/upload`, {
-        method: "POST",
-        body: t
-      });
-      if (!n.ok) {
-        const r = await n.text();
-        throw new Error(`Upload failed: ${n.status} ${n.statusText} - ${r}`)
-      }
-      return await n.json()
-    },
-    listDailyMemory: () => requestJson("/agent/memory").then(e => e.map(t => {
-      const n = t.filename.replace(".md", "");
-      return {
-        ...t,
-        date: n,
-        updated_at: new Date(t.modified_time).getTime()
-      }
-    })),
-    loadDailyMemory: e => requestJson(`/agent/memory/${encodeURIComponent(e)}.md`),
-    saveDailyMemory: (e, t) => requestJson(`/agent/memory/${encodeURIComponent(e)}.md`, {
+  downloadWorkspace: async () => {
+    const response = await fetch(`${API_BASE_URL}/workspace/download`, {
+      method: "GET",
+    });
+    if (!response.ok) {
+      throw new Error(`Workspace download failed: ${response.status} ${response.statusText}`);
+    }
+    return response.blob();
+  },
+  uploadFile: async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const response = await fetch(`${API_BASE_URL}/workspace/upload`, {
+      method: "POST",
+      body: formData,
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Upload failed: ${response.status} ${response.statusText} - ${errorText}`);
+    }
+    return response.json();
+  },
+  listDailyMemory: () =>
+    requestJson("/agent/memory").then((records) =>
+      (Array.isArray(records) ? records : []).map((record) => {
+        const filename = typeof record.filename === "string" ? record.filename : "";
+        const date = filename.replace(".md", "");
+        return {
+          ...record,
+          date,
+          updated_at: new Date(record.modified_time).getTime(),
+        };
+      }),
+    ),
+  loadDailyMemory: (date) => requestJson(`/agent/memory/${encodePathSegment(date)}.md`),
+  saveDailyMemory: (date, content) =>
+    requestJson(`/agent/memory/${encodePathSegment(date)}.md`, {
       method: "PUT",
-      body: JSON.stringify({
-        content: t
-      })
-    })
-  };
+      body: toJsonBody({
+        content,
+      }),
+    }),
+};
 
 export const xrApi = {
   ...rootApi,
@@ -245,4 +309,15 @@ export const xrApi = {
   ...workspaceApi,
 };
 
-export const xrApiGroups = [rootApi, channelsApi, cronJobsApi, chatsApi, sessionsApi, envsApi, modelsApi, skillsApi, agentApi, workspaceApi];
+export const xrApiGroups = [
+  rootApi,
+  channelsApi,
+  cronJobsApi,
+  chatsApi,
+  sessionsApi,
+  envsApi,
+  modelsApi,
+  skillsApi,
+  agentApi,
+  workspaceApi,
+];

@@ -5,112 +5,182 @@ import { xrApi } from "../api/xr";
 
 const mapSessionSummary = (value) => value;
 const normalizeMessages = (value) => value;
+const SESSION_STORAGE_KEY = "agent-scope-runtime-webui-sessions";
+const DEFAULT_USER_ID = "default";
+const DEFAULT_CHANNEL = "console";
+const NEW_CHAT_NAME = "New Chat";
 
 class SessionStore {
   constructor() {
-    this.lsKey = undefined;
-    this.sessionList = undefined;
+    this.lsKey = SESSION_STORAGE_KEY;
+    this.sessionList = [];
     this.fetchPromise = null;
     this.lastFetchTime = 0;
     this.cacheTimeout = 5e3;
-    this.sessionCache = new Map;
-    this.sessionFetchPromises = new Map;
+    this.sessionCache = new Map();
+    this.sessionFetchPromises = new Map();
     this.sessionCacheTimeout = 5e3;
-    this.lsKey = "agent-scope-runtime-webui-sessions";
-    this.sessionList = []
   }
-  createEmptySession(t) {
-    return window.currentSessionId = t, window.currentUserId = "default", window.currentChannel = "console", {
-      id: t,
-      name: "New Chat",
-      sessionId: t,
-      userId: "default",
-      channel: "console",
+
+  persistSessionList() {
+    localStorage.setItem(this.lsKey, JSON.stringify(this.sessionList));
+  }
+
+  createEmptySession(sessionId) {
+    window.currentSessionId = sessionId;
+    window.currentUserId = DEFAULT_USER_ID;
+    window.currentChannel = DEFAULT_CHANNEL;
+    return {
+      id: sessionId,
+      name: NEW_CHAT_NAME,
+      sessionId,
+      userId: DEFAULT_USER_ID,
+      channel: DEFAULT_CHANNEL,
       messages: [],
-      meta: {}
+      meta: {},
+    };
+  }
+
+  updateWindowVariables(session) {
+    window.currentSessionId = session.sessionId || "";
+    window.currentUserId = session.userId || DEFAULT_USER_ID;
+    window.currentChannel = session.channel || DEFAULT_CHANNEL;
+  }
+
+  getLocalSession(sessionId) {
+    const existing = this.sessionList.find((session) => session.id === sessionId);
+    if (!existing) {
+      return this.createEmptySession(sessionId);
     }
+    this.updateWindowVariables(existing);
+    return existing;
   }
-  updateWindowVariables(t) {
-    window.currentSessionId = t.sessionId || "", window.currentUserId = t.userId || "default", window.currentChannel = t.channel || "console"
-  }
-  getLocalSession(t) {
-    const n = this.sessionList.find(r => r.id === t);
-    return n ? (this.updateWindowVariables(n), n) : this.createEmptySession(t)
-  }
+
   async getSessionList() {
-    if (this.fetchPromise) return this.fetchPromise;
-    const t = Date.now();
-    if (this.sessionList.length > 0 && t - this.lastFetchTime < this.cacheTimeout) return [...this.sessionList];
+    if (this.fetchPromise) {
+      return this.fetchPromise;
+    }
+
+    const now = Date.now();
+    if (this.sessionList.length > 0 && now - this.lastFetchTime < this.cacheTimeout) {
+      return [...this.sessionList];
+    }
+
     this.fetchPromise = this.fetchSessionListFromBackend();
     try {
-      return await this.fetchPromise
+      return await this.fetchPromise;
     } finally {
-      this.fetchPromise = null
+      this.fetchPromise = null;
     }
   }
+
   async fetchSessionListFromBackend() {
     try {
-      const n = (await xrApi.listChats()).filter(r => r.id && r.id !== "undefined" && r.id !== "null");
-      return this.sessionList = n.map(mapSessionSummary).reverse(), localStorage.setItem(this.lsKey, JSON.stringify(this.sessionList)), this.lastFetchTime = Date.now(), [...this.sessionList]
+      const sessions = (await xrApi.listChats()).filter(
+        (session) => session.id && session.id !== "undefined" && session.id !== "null",
+      );
+      this.sessionList = sessions.map(mapSessionSummary).reverse();
+      this.persistSessionList();
+      this.lastFetchTime = Date.now();
+      return [...this.sessionList];
     } catch {
-      return this.sessionList = JSON.parse(localStorage.getItem(this.lsKey) || "[]"), [...this.sessionList]
+      this.sessionList = JSON.parse(localStorage.getItem(this.lsKey) || "[]");
+      return [...this.sessionList];
     }
   }
-  async getSession(t) {
+
+  async getSession(sessionId) {
     try {
-      if (!t || t === "undefined" || t === "null") return this.createEmptySession(`temp-${Date.now()}`);
-      if (/^\d+$/.test(t)) return this.getLocalSession(t);
-      const r = this.sessionCache.get(t),
-        a = Date.now();
-      if (r && a - r.timestamp < this.sessionCacheTimeout) return this.updateWindowVariables(r.session), r.session;
-      const i = this.sessionFetchPromises.get(t);
-      if (i) return i;
-      const o = this.fetchSessionFromBackend(t);
-      this.sessionFetchPromises.set(t, o);
+      if (!sessionId || sessionId === "undefined" || sessionId === "null") {
+        return this.createEmptySession(`temp-${Date.now()}`);
+      }
+      if (/^\d+$/.test(sessionId)) {
+        return this.getLocalSession(sessionId);
+      }
+
+      const cacheEntry = this.sessionCache.get(sessionId);
+      const now = Date.now();
+      if (cacheEntry && now - cacheEntry.timestamp < this.sessionCacheTimeout) {
+        this.updateWindowVariables(cacheEntry.session);
+        return cacheEntry.session;
+      }
+
+      const inFlightRequest = this.sessionFetchPromises.get(sessionId);
+      if (inFlightRequest) {
+        return inFlightRequest;
+      }
+
+      const request = this.fetchSessionFromBackend(sessionId);
+      this.sessionFetchPromises.set(sessionId, request);
       try {
-        return await o
+        return await request;
       } finally {
-        this.sessionFetchPromises.delete(t)
+        this.sessionFetchPromises.delete(sessionId);
       }
     } catch {
-      const r = this.sessionList.find(a => a.id === t);
-      return r || this.createEmptySession(t)
+      const cachedSession = this.sessionList.find((session) => session.id === sessionId);
+      return cachedSession || this.createEmptySession(sessionId);
     }
   }
-  async fetchSessionFromBackend(t) {
-    const n = await xrApi.getChat(t),
-      r = this.sessionList.find(i => i.id === t),
-      a = {
-        id: t,
-        name: (r == null ? void 0 : r.name) || t,
-        sessionId: (r == null ? void 0 : r.sessionId) || t,
-        userId: (r == null ? void 0 : r.userId) || "default",
-        channel: (r == null ? void 0 : r.channel) || "console",
-        messages: normalizeMessages(n.messages || []),
-        meta: (r == null ? void 0 : r.meta) || {}
+
+  async fetchSessionFromBackend(sessionId) {
+    const remoteSession = await xrApi.getChat(sessionId);
+    const localSession = this.sessionList.find((session) => session.id === sessionId);
+    const mergedSession = {
+      id: sessionId,
+      name: localSession?.name || sessionId,
+      sessionId: localSession?.sessionId || sessionId,
+      userId: localSession?.userId || DEFAULT_USER_ID,
+      channel: localSession?.channel || DEFAULT_CHANNEL,
+      messages: normalizeMessages(remoteSession.messages || []),
+      meta: localSession?.meta || {},
+    };
+    this.updateWindowVariables(mergedSession);
+    this.sessionCache.set(sessionId, {
+      session: mergedSession,
+      timestamp: Date.now(),
+    });
+    return mergedSession;
+  }
+
+  async updateSession(patch) {
+    const index = this.sessionList.findIndex((session) => session.id === patch.id);
+    if (index > -1) {
+      this.sessionList[index] = {
+        ...this.sessionList[index],
+        ...patch,
       };
-    return this.updateWindowVariables(a), this.sessionCache.set(t, {
-      session: a,
-      timestamp: Date.now()
-    }), a
+      this.persistSessionList();
+    }
+    return [...this.sessionList];
   }
-  async updateSession(t) {
-    const n = this.sessionList.findIndex(r => r.id === t.id);
-    return n > -1 && (this.sessionList[n] = {
-      ...this.sessionList[n],
-      ...t
-    }, localStorage.setItem(this.lsKey, JSON.stringify(this.sessionList))), [...this.sessionList]
+
+  async createSession(session) {
+    session.id = Date.now().toString();
+    this.sessionList.unshift(session);
+    this.persistSessionList();
+    this.lastFetchTime = Date.now();
+    return [...this.sessionList];
   }
-  async createSession(t) {
-    return t.id = Date.now().toString(), this.sessionList.unshift(t), localStorage.setItem(this.lsKey, JSON.stringify(this.sessionList)), this.lastFetchTime = Date.now(), [...this.sessionList]
-  }
-  async removeSession(t) {
+
+  async removeSession(session) {
     try {
-      if (!t.id) return [...this.sessionList];
-      const n = t.id;
-      return await xrApi.deleteChat(n), this.sessionList = this.sessionList.filter(r => r.id !== n), localStorage.setItem(this.lsKey, JSON.stringify(this.sessionList)), this.lastFetchTime = Date.now(), [...this.sessionList]
+      if (!session.id) {
+        return [...this.sessionList];
+      }
+      const sessionId = session.id;
+      await xrApi.deleteChat(sessionId);
+      this.sessionList = this.sessionList.filter((item) => item.id !== sessionId);
+      this.persistSessionList();
+      this.lastFetchTime = Date.now();
+      return [...this.sessionList];
     } catch {
-      return t.id && (this.sessionList = this.sessionList.filter(r => r.id !== t.id), localStorage.setItem(this.lsKey, JSON.stringify(this.sessionList)), this.lastFetchTime = Date.now()), [...this.sessionList]
+      if (session.id) {
+        this.sessionList = this.sessionList.filter((item) => item.id !== session.id);
+        this.persistSessionList();
+        this.lastFetchTime = Date.now();
+      }
+      return [...this.sessionList];
     }
   }
 }
