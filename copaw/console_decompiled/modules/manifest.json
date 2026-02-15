@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-02-15T06:23:08.438Z",
+  "source_summary_generated_at": "2026-02-15T06:23:08.392Z",
+  "source_reports": {
+    "xr_method_count": 33,
+    "route_path_count": 9,
+    "business_i18n_key_count": 170
+  },
+  "recovered_modules": {
+    "api_group_count": 10,
+    "router_path_count": 9,
+    "page_symbol_count": 8,
+    "i18n_key_count": 170
+  },
+  "generated_files": [
+    "copaw/console_decompiled/modules/api/xr.ts",
+    "copaw/console_decompiled/modules/api/xr-methods.json",
+    "copaw/console_decompiled/modules/hooks/session-store.js",
+    "copaw/console_decompiled/modules/router/routes.ts",
+    "copaw/console_decompiled/modules/router/router-shell.tsx",
+    "copaw/console_decompiled/modules/router/route-paths.json",
+    "copaw/console_decompiled/modules/pages/route-components.md",
+    "copaw/console_decompiled/modules/i18n/resources.js",
+    "copaw/console_decompiled/modules/i18n/business-i18n-keys.json"
+  ],
+  "notes": [
+    "phase2 为语义重建，不等价于原始 TS/Vue 源码",
+    "session-store 仍包含匿名化辅助符号的兜底逻辑"
+  ]
+}

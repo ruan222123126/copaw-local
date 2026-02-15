@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-02-15T06:23:08.392Z",
+  "assets_js_count": 49,
+  "map_deps_count": 48,
+  "dynamic_import_count": 27,
+  "export_alias_count": 159,
+  "xr_method_count": 33,
+  "route_path_count": 9,
+  "business_i18n_key_count": 170,
+  "entry_file": "copaw/console/assets/index-DR5NfigS.js",
+  "pretty_entry_file": "copaw/console_decompiled/pretty/index-DR5NfigS.js"
+}

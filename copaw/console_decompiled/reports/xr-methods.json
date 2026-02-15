@@ -1,0 +1,134 @@
+[
+  {
+    "method": "configureProvider",
+    "calls": 2
+  },
+  {
+    "method": "replaceCronJob",
+    "calls": 2
+  },
+  {
+    "method": "batchDeleteSessions",
+    "calls": 1
+  },
+  {
+    "method": "createCronJob",
+    "calls": 1
+  },
+  {
+    "method": "createSkill",
+    "calls": 1
+  },
+  {
+    "method": "deleteChat",
+    "calls": 1
+  },
+  {
+    "method": "deleteCronJob",
+    "calls": 1
+  },
+  {
+    "method": "deleteSession",
+    "calls": 1
+  },
+  {
+    "method": "deleteSkill",
+    "calls": 1
+  },
+  {
+    "method": "disableSkill",
+    "calls": 1
+  },
+  {
+    "method": "enableSkill",
+    "calls": 1
+  },
+  {
+    "method": "getActiveModels",
+    "calls": 1
+  },
+  {
+    "method": "getChat",
+    "calls": 1
+  },
+  {
+    "method": "getVersion",
+    "calls": 1
+  },
+  {
+    "method": "listChannels",
+    "calls": 1
+  },
+  {
+    "method": "listChannelTypes",
+    "calls": 1
+  },
+  {
+    "method": "listChats",
+    "calls": 1
+  },
+  {
+    "method": "listCronJobs",
+    "calls": 1
+  },
+  {
+    "method": "listDailyMemory",
+    "calls": 1
+  },
+  {
+    "method": "listEnvs",
+    "calls": 1
+  },
+  {
+    "method": "listFiles",
+    "calls": 1
+  },
+  {
+    "method": "listProviders",
+    "calls": 1
+  },
+  {
+    "method": "listSessions",
+    "calls": 1
+  },
+  {
+    "method": "listSkills",
+    "calls": 1
+  },
+  {
+    "method": "loadDailyMemory",
+    "calls": 1
+  },
+  {
+    "method": "loadFile",
+    "calls": 1
+  },
+  {
+    "method": "saveDailyMemory",
+    "calls": 1
+  },
+  {
+    "method": "saveEnvs",
+    "calls": 1
+  },
+  {
+    "method": "saveFile",
+    "calls": 1
+  },
+  {
+    "method": "setActiveLlm",
+    "calls": 1
+  },
+  {
+    "method": "triggerCronJob",
+    "calls": 1
+  },
+  {
+    "method": "updateChannelConfig",
+    "calls": 1
+  },
+  {
+    "method": "updateSession",
+    "calls": 1
+  }
+]

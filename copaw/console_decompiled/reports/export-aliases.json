@@ -1,0 +1,638 @@
+[
+  {
+    "local": "gNe",
+    "exported": "$"
+  },
+  {
+    "local": "Vy",
+    "exported": "A"
+  },
+  {
+    "local": "LJt",
+    "exported": "B"
+  },
+  {
+    "local": "Len",
+    "exported": "C"
+  },
+  {
+    "local": "sH",
+    "exported": "D"
+  },
+  {
+    "local": "sNe",
+    "exported": "E"
+  },
+  {
+    "local": "Yo",
+    "exported": "F"
+  },
+  {
+    "local": "Fin",
+    "exported": "G"
+  },
+  {
+    "local": "Oan",
+    "exported": "H"
+  },
+  {
+    "local": "L0e",
+    "exported": "I"
+  },
+  {
+    "local": "Ein",
+    "exported": "J"
+  },
+  {
+    "local": "JJt",
+    "exported": "K"
+  },
+  {
+    "local": "b0",
+    "exported": "L"
+  },
+  {
+    "local": "Tbn",
+    "exported": "M"
+  },
+  {
+    "local": "Nk",
+    "exported": "N"
+  },
+  {
+    "local": "ben",
+    "exported": "O"
+  },
+  {
+    "local": "PW",
+    "exported": "P"
+  },
+  {
+    "local": "F0e",
+    "exported": "Q"
+  },
+  {
+    "local": "lan",
+    "exported": "R"
+  },
+  {
+    "local": "XC",
+    "exported": "S"
+  },
+  {
+    "local": "Bin",
+    "exported": "T"
+  },
+  {
+    "local": "PE",
+    "exported": "U"
+  },
+  {
+    "local": "wen",
+    "exported": "V"
+  },
+  {
+    "local": "RE",
+    "exported": "W"
+  },
+  {
+    "local": "xn",
+    "exported": "X"
+  },
+  {
+    "local": "Fn",
+    "exported": "Y"
+  },
+  {
+    "local": "Ain",
+    "exported": "Z"
+  },
+  {
+    "local": "Z",
+    "exported": "_"
+  },
+  {
+    "local": "Aen",
+    "exported": "a"
+  },
+  {
+    "local": "q4e",
+    "exported": "a$"
+  },
+  {
+    "local": "aan",
+    "exported": "a0"
+  },
+  {
+    "local": "jW",
+    "exported": "a1"
+  },
+  {
+    "local": "kbn",
+    "exported": "a2"
+  },
+  {
+    "local": "Ibn",
+    "exported": "a3"
+  },
+  {
+    "local": "Fg",
+    "exported": "a4"
+  },
+  {
+    "local": "sbe",
+    "exported": "a5"
+  },
+  {
+    "local": "obe",
+    "exported": "a6"
+  },
+  {
+    "local": "Qbn",
+    "exported": "a7"
+  },
+  {
+    "local": "Mbn",
+    "exported": "a8"
+  },
+  {
+    "local": "Nbn",
+    "exported": "a9"
+  },
+  {
+    "local": "Jsn",
+    "exported": "aA"
+  },
+  {
+    "local": "Gsn",
+    "exported": "aB"
+  },
+  {
+    "local": "qsn",
+    "exported": "aC"
+  },
+  {
+    "local": "tsn",
+    "exported": "aD"
+  },
+  {
+    "local": "ian",
+    "exported": "aE"
+  },
+  {
+    "local": "pRe",
+    "exported": "aF"
+  },
+  {
+    "local": "Uj",
+    "exported": "aG"
+  },
+  {
+    "local": "cPt",
+    "exported": "aH"
+  },
+  {
+    "local": "Lkt",
+    "exported": "aI"
+  },
+  {
+    "local": "_Nt",
+    "exported": "aJ"
+  },
+  {
+    "local": "nPt",
+    "exported": "aK"
+  },
+  {
+    "local": "Lj",
+    "exported": "aL"
+  },
+  {
+    "local": "zse",
+    "exported": "aM"
+  },
+  {
+    "local": "dE",
+    "exported": "aN"
+  },
+  {
+    "local": "qu",
+    "exported": "aO"
+  },
+  {
+    "local": "Dj",
+    "exported": "aP"
+  },
+  {
+    "local": "mRe",
+    "exported": "aQ"
+  },
+  {
+    "local": "_s",
+    "exported": "aR"
+  },
+  {
+    "local": "ME",
+    "exported": "aS"
+  },
+  {
+    "local": "Jon",
+    "exported": "aT"
+  },
+  {
+    "local": "Kon",
+    "exported": "aU"
+  },
+  {
+    "local": "zW",
+    "exported": "aV"
+  },
+  {
+    "local": "Zf",
+    "exported": "aW"
+  },
+  {
+    "local": "h1",
+    "exported": "aX"
+  },
+  {
+    "local": "ebe",
+    "exported": "aY"
+  },
+  {
+    "local": "Lnn",
+    "exported": "aZ"
+  },
+  {
+    "local": "Cn",
+    "exported": "a_"
+  },
+  {
+    "local": "Rbn",
+    "exported": "aa"
+  },
+  {
+    "local": "Pbn",
+    "exported": "ab"
+  },
+  {
+    "local": "Abn",
+    "exported": "ac"
+  },
+  {
+    "local": "Lbn",
+    "exported": "ad"
+  },
+  {
+    "local": "Dbn",
+    "exported": "ae"
+  },
+  {
+    "local": "xbn",
+    "exported": "af"
+  },
+  {
+    "local": "R9",
+    "exported": "ag"
+  },
+  {
+    "local": "wsn",
+    "exported": "ah"
+  },
+  {
+    "local": "t6e",
+    "exported": "ai"
+  },
+  {
+    "local": "Zbn",
+    "exported": "aj"
+  },
+  {
+    "local": "Tin",
+    "exported": "ak"
+  },
+  {
+    "local": "Xi",
+    "exported": "al"
+  },
+  {
+    "local": "Xp",
+    "exported": "am"
+  },
+  {
+    "local": "tH",
+    "exported": "an"
+  },
+  {
+    "local": "C5e",
+    "exported": "ao"
+  },
+  {
+    "local": "Ym",
+    "exported": "ap"
+  },
+  {
+    "local": "J4e",
+    "exported": "aq"
+  },
+  {
+    "local": "ir",
+    "exported": "ar"
+  },
+  {
+    "local": "Wu",
+    "exported": "as"
+  },
+  {
+    "local": "EC",
+    "exported": "at"
+  },
+  {
+    "local": "Oln",
+    "exported": "au"
+  },
+  {
+    "local": "Hbn",
+    "exported": "av"
+  },
+  {
+    "local": "Kbn",
+    "exported": "aw"
+  },
+  {
+    "local": "Gbn",
+    "exported": "ax"
+  },
+  {
+    "local": "Pn",
+    "exported": "ay"
+  },
+  {
+    "local": "Wbn",
+    "exported": "az"
+  },
+  {
+    "local": "ken",
+    "exported": "b"
+  },
+  {
+    "local": "js",
+    "exported": "b0"
+  },
+  {
+    "local": "knn",
+    "exported": "b1"
+  },
+  {
+    "local": "LW",
+    "exported": "b2"
+  },
+  {
+    "local": "PNe",
+    "exported": "b3"
+  },
+  {
+    "local": "AE",
+    "exported": "b4"
+  },
+  {
+    "local": "NNe",
+    "exported": "b5"
+  },
+  {
+    "local": "$bn",
+    "exported": "b6"
+  },
+  {
+    "local": "g$",
+    "exported": "b7"
+  },
+  {
+    "local": "Qkt",
+    "exported": "b8"
+  },
+  {
+    "local": "Up",
+    "exported": "b9"
+  },
+  {
+    "local": "Mkt",
+    "exported": "bA"
+  },
+  {
+    "local": "zkt",
+    "exported": "bB"
+  },
+  {
+    "local": "TNt",
+    "exported": "bC"
+  },
+  {
+    "local": "kNt",
+    "exported": "bD"
+  },
+  {
+    "local": "Oa",
+    "exported": "bE"
+  },
+  {
+    "local": "Vu",
+    "exported": "ba"
+  },
+  {
+    "local": "UP",
+    "exported": "bb"
+  },
+  {
+    "local": "Ise",
+    "exported": "bc"
+  },
+  {
+    "local": "lAt",
+    "exported": "bd"
+  },
+  {
+    "local": "Eu",
+    "exported": "be"
+  },
+  {
+    "local": "XP",
+    "exported": "bf"
+  },
+  {
+    "local": "Bm",
+    "exported": "bg"
+  },
+  {
+    "local": "Fj",
+    "exported": "bh"
+  },
+  {
+    "local": "Bp",
+    "exported": "bi"
+  },
+  {
+    "local": "Fp",
+    "exported": "bj"
+  },
+  {
+    "local": "jj",
+    "exported": "bk"
+  },
+  {
+    "local": "$Re",
+    "exported": "bl"
+  },
+  {
+    "local": "SRe",
+    "exported": "bm"
+  },
+  {
+    "local": "bRe",
+    "exported": "bn"
+  },
+  {
+    "local": "HS",
+    "exported": "bo"
+  },
+  {
+    "local": "akt",
+    "exported": "bp"
+  },
+  {
+    "local": "SNt",
+    "exported": "bq"
+  },
+  {
+    "local": "aPt",
+    "exported": "br"
+  },
+  {
+    "local": "nAt",
+    "exported": "bs"
+  },
+  {
+    "local": "f9",
+    "exported": "bt"
+  },
+  {
+    "local": "dPt",
+    "exported": "bu"
+  },
+  {
+    "local": "fE",
+    "exported": "bv"
+  },
+  {
+    "local": "zj",
+    "exported": "bw"
+  },
+  {
+    "local": "vRe",
+    "exported": "bx"
+  },
+  {
+    "local": "Bj",
+    "exported": "by"
+  },
+  {
+    "local": "Bkt",
+    "exported": "bz"
+  },
+  {
+    "local": "ma",
+    "exported": "c"
+  },
+  {
+    "local": "qr",
+    "exported": "d"
+  },
+  {
+    "local": "mNe",
+    "exported": "e"
+  },
+  {
+    "local": "Li",
+    "exported": "f"
+  },
+  {
+    "local": "Ien",
+    "exported": "g"
+  },
+  {
+    "local": "of",
+    "exported": "h"
+  },
+  {
+    "local": "sc",
+    "exported": "i"
+  },
+  {
+    "local": "kin",
+    "exported": "j"
+  },
+  {
+    "local": "cb",
+    "exported": "k"
+  },
+  {
+    "local": "Pt",
+    "exported": "l"
+  },
+  {
+    "local": "t5e",
+    "exported": "m"
+  },
+  {
+    "local": "wbn",
+    "exported": "n"
+  },
+  {
+    "local": "evn",
+    "exported": "o"
+  },
+  {
+    "local": "Men",
+    "exported": "p"
+  },
+  {
+    "local": "Qen",
+    "exported": "q"
+  },
+  {
+    "local": "Jbn",
+    "exported": "r"
+  },
+  {
+    "local": "Nen",
+    "exported": "s"
+  },
+  {
+    "local": "xin",
+    "exported": "t"
+  },
+  {
+    "local": "zc",
+    "exported": "u"
+  },
+  {
+    "local": "Xsn",
+    "exported": "v"
+  },
+  {
+    "local": "Xin",
+    "exported": "w"
+  },
+  {
+    "local": "zbn",
+    "exported": "x"
+  },
+  {
+    "local": "Pen",
+    "exported": "y"
+  },
+  {
+    "local": "Cbn",
+    "exported": "z"
+  }
+]

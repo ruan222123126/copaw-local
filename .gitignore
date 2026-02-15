@@ -9,3 +9,5 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+copaw/console_decompiled/original/
+copaw/console_decompiled/pretty/
